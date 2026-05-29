@@ -74,6 +74,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Sandbox'
+        '400':
+          description: Validation error (invalid timeout, missing fields)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
         '500':
           description: Unexpected backend error
           content:
@@ -571,6 +577,10 @@ paths:
       responses:
         '501':
           description: Not implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
     delete:
       tags: [templates]
       operationId: delete_template
@@ -618,6 +628,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TemplateBuildJob'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: Template or build not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Unexpected backend error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
 
   /templates/{templateID}/builds/{buildID}/status:
     get:
@@ -640,6 +668,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TemplateBuildStatus'
+        '404':
+          description: Template or build not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Unexpected backend error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
 
   /templates/{templateID}/builds/{buildID}/logs:
     get:
@@ -665,6 +705,18 @@ paths:
       responses:
         '200':
           description: Build logs (opaque JSON from CubeMaster)
+        '404':
+          description: Template or build not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Unexpected backend error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
 
   # ─── Snapshots ──────────────────────────────────────────────────────────
   /snapshots:
@@ -835,6 +887,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RuntimeConfig'
+        '500':
+          description: Unexpected backend error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
 
   /store/meta:
     get:
@@ -848,6 +906,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StoreMeta'
+        '500':
+          description: Unexpected backend error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
 
   /store/refresh:
     post:
@@ -861,6 +925,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StoreMeta'
+        '500':
+          description: Unexpected backend error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
 
 components:
   parameters:
